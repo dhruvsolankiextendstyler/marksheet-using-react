@@ -86,7 +86,7 @@ function Marksheet() {
                             ))}
 
                             <tr>
-                                <td colSpan="4"><strong>Semester CGPA</strong></td>
+                                <td colSpan="4">Semester CGPA</td>
                                 <td>
                                     {semesterSubjects.length > 0
                                         ? (
@@ -97,6 +97,18 @@ function Marksheet() {
                                             ) / semesterSubjects.length / 10
                                         ).toFixed(2)
                                         : 'N/A'}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colSpan="4">Result</td>
+                                <td>
+                                    {semesterSubjects.every(
+                                        (subject) =>
+                                            Number(subject.icaMarks) > 16 &&
+                                            Number(subject.theoryMarks) > 24
+                                    )
+                                        ? 'PASS'
+                                        : 'FAIL'}
                                 </td>
                             </tr>
 

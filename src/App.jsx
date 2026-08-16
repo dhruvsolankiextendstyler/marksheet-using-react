@@ -3,13 +3,16 @@ import { Routes, Route, useNavigate } from 'react-router-dom';
 import Marksheet from './Marksheet';
 
 function App() {
+
   const navigate = useNavigate();
+
   const [studentid, setStudentid] = useState('');
   const [selectedStudent, setSelectedStudent] = useState(null);
   const [subject, setSubject] = useState('');
   const [semester, setSemester] = useState('I');
   const [icaMarks, setIcaMarks] = useState('');
   const [theoryMarks, setTheoryMarks] = useState('');
+
   const [students, setStudents] = useState([
     {
       id: 101,
@@ -47,6 +50,7 @@ function App() {
     if (!selectedStudent) {
       return;
     }
+
     const newSubject = {
       subject: subject,
       semester: semester,
@@ -64,29 +68,46 @@ function App() {
             subjects: [...student.subjects, newSubject]
           };
         }
+
         return student;
       })
     );
   }
 
-
   useEffect(() => {
     console.log(students);
   }, [students]);
-  return (
 
+  return (
     <Routes>
-      <Route path="/"
+
+      <Route
+        path="/"
         element={
           <>
             <h1>Marksheet Display</h1>
+
             <section>
-              <label>Enter student ID: </label> <input type="text" name="studentid" value={studentid} onChange={(e) => setStudentid(e.target.value)} /> <br /><br />
-              <button onClick={confirmStudent}>Confirm Student Details</button>
+              <label>Enter student ID: </label>
+
+              <input
+                type="text"
+                name="studentid"
+                value={studentid}
+                onChange={(e) => setStudentid(e.target.value)}
+              />
+
+              <br /><br />
+
+              <button onClick={confirmStudent}>
+                Confirm Student Details
+              </button>
             </section>
+
             {selectedStudent ? (
               <section>
                 <h3>Student Details</h3>
+
                 <p>Name: {selectedStudent.name}</p>
                 <p>Roll No: {selectedStudent.rollno}</p>
                 <p>Program: {selectedStudent.program}</p>
@@ -94,26 +115,75 @@ function App() {
             ) : (
               <p>Invalid Student ID</p>
             )}
+
             ---------------------------------------------------------------
+
             <section>
               <h3>Enter Marks</h3>
+
               <label>Subject: </label>
-              <input type="text" name="subject" value={subject} onChange={(e) => setSubject(e.target.value)} /> <br />
+
+              <input
+                type="text"
+                name="subject"
+                value={subject}
+                onChange={(e) => setSubject(e.target.value)}
+              />
+
+              <br />
+
               <label>Semester: </label>
-              <select name="semester" value={semester} onChange={(e) => setSemester(e.target.value)}>
+
+              <select
+                name="semester"
+                value={semester}
+                onChange={(e) => setSemester(e.target.value)}
+              >
                 <option value="I">I</option>
                 <option value="II">II</option>
                 <option value="III">III</option>
                 <option value="IV">IV</option>
                 <option value="V">V</option>
-              </select><br />
+              </select>
+
+              <br />
+
               <label>ICA Marks: </label>
-              <input type="number" name="icamarks" value={icaMarks} onChange={(e) => setIcaMarks(e.target.value)} /><br />
+
+              <input
+                type="number"
+                name="icamarks"
+                value={icaMarks}
+                onChange={(e) => setIcaMarks(e.target.value)}
+              />
+
+              <br />
+
               <label>Theory ESE marks: </label>
-              <input type="number" name="thoery" value={theoryMarks} onChange={(e) => setTheoryMarks(e.target.value)} /><br /><br />
-              <button onClick={addSubject}>Add Subject</button>   <button onClick={() => navigate('/marksheet', { state: { students: students } })}>
+
+              <input
+                type="number"
+                name="thoery"
+                value={theoryMarks}
+                onChange={(e) => setTheoryMarks(e.target.value)}
+              />
+
+              <br /><br />
+
+              <button onClick={addSubject}>
+                Add Subject
+              </button>
+
+              <button
+                onClick={() =>
+                  navigate('/marksheet', {
+                    state: { students: students }
+                  })
+                }
+              >
                 Go to Marksheet
               </button>
+
             </section>
           </>
         }
@@ -123,8 +193,9 @@ function App() {
         path="/marksheet"
         element={<Marksheet />}
       />
+
     </Routes>
   )
 }
 
-export default App
+export default App  
